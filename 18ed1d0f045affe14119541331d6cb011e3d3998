@@ -1,0 +1,7 @@
+[ver:1,total:2160,branch:main]
+converter.py:1688,1617192000:1688,m
+.gtm/Shell Script-> converter.py.app:191,1617192000:191,r
+.gitignore:90,1617192000:90,m
+.gtm/Python-> converter.app:71,1617192000:71,r
+gtm.csv:60,1617192000:60,r
+moodle.csv:60,1617192000:60,r
