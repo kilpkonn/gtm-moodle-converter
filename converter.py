@@ -5,12 +5,13 @@ import hashlib
 
 
 class Commit:
-    def __init__(self, hash, path, is_app, points, time, lines_added, lines_removed, files, message, timestamp):
+    def __init__(self, hash, path, is_app, points, style_points, time, lines_added, lines_removed, files, message, timestamp):
         """Init."""
         self.hash = hash
         self.path = path
         self.is_app = is_app
         self.points = points
+        self.style_points = style_points
         self.time = time
         self.lines_added = lines_added
         self.lines_removed = lines_removed
@@ -23,6 +24,9 @@ if len(sys.argv) < 3:
     print("please specify moodle and gtm files as arguments")
     exit(1)
 
+
+csv_headers = ['hash', 'path', 'is_app', 'points', 'style_points', 'time', 'lines_added', 'lines_removed', 'files',
+               'message', 'timestamp']
 moodle = sys.argv[1]
 moodle_headers = []
 moodle_rows = []
@@ -71,7 +75,9 @@ for row in gtm_rows:
     moodle_row = moodle_row[0]
     path = row[gtm_path_col_index].strip('/')
     moodle_test_points_col_idxes = [i for i, col in enumerate(moodle_headers) if f"{path} - tests" in col]
+    moodle_style_points_col_idxes = [i for i, col in enumerate(moodle_headers) if f"{path} - style" in col]
     moodel_points = sum([float(moodle_row[i]) for i in moodle_test_points_col_idxes if moodle_row[i].isnumeric()])
+    moodel_style_points = sum([float(moodle_row[i]) for i in moodle_style_points_col_idxes if moodle_row[i].isnumeric()])
 
     # i += 1
     # print(i,
@@ -88,6 +94,7 @@ for row in gtm_rows:
                           path,
                           row[gtm_is_app_col_index],
                           moodel_points,
+                          moodel_style_points,
                           row[gtm_time_col_index],
                           row[gtm_lines_added_col_index],
                           row[gtm_lines_removed_col_index],
@@ -95,3 +102,9 @@ for row in gtm_rows:
                           row[gtm_message_col_index],
                           row[gtm_timestamp_col_index]))
 
+with open('./output.csv', 'w+') as f:
+    wr = csv.writer(f, delimiter=',')
+    wr.writerow(csv_headers)
+    for c in commits:
+        wr.writerow([c.hash, c.path, c.is_app, c.points, c.style_points, c.time, c.lines_added, c.lines_removed,
+                     c.files, c.message, c.timestamp])
