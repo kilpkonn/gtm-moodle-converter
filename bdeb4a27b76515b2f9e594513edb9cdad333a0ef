@@ -1,0 +1,12 @@
+[ver:1,total:1620,branch:main]
+converter.py:552,1617638400:492,1617642000:60,m
+.gtm/Python-> converter.app:368,1617638400:368,r
+output.csv:340,1617638400:340,r
+gtm.csv:180,1617638400:180,r
+README.md:120,1617638400:120,m
+moodle.csv:60,1617638400:60,r
+
+[ver:1,total:270,branch:main]
+converter.py:180,1617642000:180,m
+.git/COMMIT_EDITMSG:60,1619593200:60,r
+README.md:30,1617642000:30,m
