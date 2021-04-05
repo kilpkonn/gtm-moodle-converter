@@ -1,9 +1,9 @@
-# gtm-moodle-converter
 
 ## Data
 - **hash**: Hashed user identifier. Can be used to group data by user.
 - **path**: Edited file path or program name. For files this is either a complete path or 
-path beginning. _(Amount of files grouped can be seen in `files` field)_
+  path beginning. For files this usually corresponds to task folder.
+  _(Amount of files grouped can be seen in `files` field)_
 - **is_app**: Identifier whether the time is recorded running program or editing file.
 - **points**: Moodle (undefended) points.
 - **style_points**: Style points. Typically either 0 or 1.

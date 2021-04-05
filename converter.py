@@ -1,4 +1,4 @@
-
+import re
 import sys
 import csv
 import hashlib
@@ -76,7 +76,7 @@ for row in gtm_rows:
     path = row[gtm_path_col_index].strip('/')
     moodle_test_points_col_idxes = [i for i, col in enumerate(moodle_headers) if f"{path} - tests" in col]
     moodle_style_points_col_idxes = [i for i, col in enumerate(moodle_headers) if f"{path} - style" in col]
-    moodel_points = sum([float(moodle_row[i]) for i in moodle_test_points_col_idxes if moodle_row[i].isnumeric()])
+    moodel_points = sum([float(moodle_row[i]) for i in moodle_test_points_col_idxes if re.match(r'^-?\d+(?:\.\d+)?$', moodle_row[i].strip())])
     moodel_style_points = sum([float(moodle_row[i]) for i in moodle_style_points_col_idxes if moodle_row[i].isnumeric()])
 
     # i += 1
@@ -92,7 +92,7 @@ for row in gtm_rows:
     #       row[gtm_timestamp_col_index])
     commits.append(Commit(hashlib.sha1(row[gtm_user_col_index].encode("utf-8")).hexdigest(),
                           path,
-                          row[gtm_is_app_col_index],
+                          row[gtm_is_app_col_index] == "true",
                           moodel_points,
                           moodel_style_points,
                           row[gtm_time_col_index],
